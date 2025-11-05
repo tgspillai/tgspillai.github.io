@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Smarter Bibliography Management with NASA ADS and Overleaf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="How to customize NASA ADS BibTeX keys and enable Overleaf citation autocomplete for faster, cleaner astrophysics writing." />
+  <style>
+    :root{
+      --bg:#0b0d12; --card:#121621; --ink:#e8eefc; --muted:#9fb0d3;
+      --accent:#7aa2ff; --accent-2:#c099ff; --code-bg:#0f1320; --border:#1e2433;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink); background:radial-gradient(1200px 600px at 20% -10%, #10162b 0%, var(--bg) 60%), var(--bg);
+    }
+    .wrap{max-width:900px; margin:0 auto; padding:32px 18px 80px}
+    header{
+      background:linear-gradient(135deg, rgba(122,162,255,.15), rgba(192,153,255,.08));
+      border:1px solid var(--border); padding:28px 22px; border-radius:18px; backdrop-filter: blur(6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    h1{margin:0 0 6px; font-size:clamp(26px, 3vw, 38px); line-height:1.15}
+    .meta{color:var(--muted); font-size:14px}
+    main article{
+      margin-top:22px; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:26px 22px;
+      box-shadow: 0 12px 36px rgba(0,0,0,.28);
+    }
+    h2{margin-top:30px; font-size:clamp(21px, 2.2vw, 28px)}
+    h3{margin-top:22px; font-size:clamp(18px, 1.8vw, 22px)}
+    p{margin:12px 0}
+    .callout{
+      border-left:4px solid var(--accent); padding:12px 14px; background:rgba(122,162,255,.08); border-radius:8px; color:#d7e3ff;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    code, pre{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:14px;
+    }
+    pre{
+      background:var(--code-bg); color:#e9edff; padding:14px 16px; border-radius:12px; overflow:auto; border:1px solid var(--border);
+    }
+    .kbd{display:inline-block; padding:2px 6px; border:1px solid var(--border); border-bottom-width:2px; border-radius:6px; background:#0c1120; font-size:13px}
+    ul{margin:10px 0 10px 22px}
+    footer{margin-top:28px; color:var(--muted); font-size:14px}
+    .hr{height:1px; background:linear-gradient(90deg, transparent, #1f2740, transparent); margin:26px 0}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Smarter Bibliography Management with NASA ADS and Overleaf</h1>
+      <div class="meta">Author: Your Name · Last updated: Nov 5, 2025</div>
+    </header>
+
+    <main>
+      <article>
+        <p>Managing references efficiently can save hours when writing papers, theses, or proposals. This short guide shows how to make your <strong>NASA ADS exports</strong> and <strong>Overleaf citations</strong> work together seamlessly.</p>
+
+        <div class="hr"></div>
+
+        <h2>🌌 1) Custom BibTeX Keys in NASA ADS</h2>
+        <p>By default, NASA ADS exports BibTeX entries with long, cryptic keys like:</p>
+
+<pre><code class="language-bibtex">@ARTICLE{2024ApJ...974....8P,
+  author = {Parker, Richard J. and ...},
+  ...
+}
+</code></pre>
+
+        <p>Let’s switch to human-readable keys such as <code>Parker2024</code>, <code>Parker2024a</code>, <code>Parker2024b</code>.</p>
+
+        <h3>Steps</h3>
+        <ol>
+          <li>Open <a href="https://ui.adsabs.harvard.edu/help/actions/export" target="_blank" rel="noopener">ADS → Settings → Export</a>.</li>
+          <li>Under <em>“BibTeX [ABS] Default Export Key Format”</em>, enter:</li>
+        </ol>
+
+<pre><code>%1H%Y%zm
+</code></pre>
+
+        <ul>
+          <li><code>%1H</code> → first author’s last name</li>
+          <li><code>%Y</code> → publication year</li>
+          <li><code>%zm</code> → automatically adds <code>a</code>, <code>b</code>, <code>c</code>… for duplicates</li>
+        </ul>
+
+        <div class="callout">
+          Now every export will have clean keys like <code>Parker2024</code>, <code>Parker2024a</code>, <code>Parker2024b</code> — perfect for citation consistency in LaTeX/Overleaf.
+        </div>
+
+        <div class="hr"></div>
+
+        <h2>🧠 2) Enable Citation Autocomplete in Overleaf</h2>
+        <p>Once your <code>.bib</code> file is uploaded to Overleaf, you can get <strong>live citation autocompletion</strong> while typing <code>\citep{...}</code> or <code>\citet{...}</code>.</p>
+
+        <h3>Setup</h3>
+        <ol>
+          <li><strong>Upload</strong> your <code>.bib</code> file (e.g., <code>bib.bib</code>) to your Overleaf project.</li>
+          <li>Include it in your main <code>.tex</code> file:</li>
+        </ol>
+
+<pre><code class="language-tex">\usepackage{natbib}
+\bibliographystyle{unsrtnat}
+\bibliography{bib}
+</code></pre>
+
+        <ol start="3">
+          <li>Turn on editor autocomplete: <span class="kbd">Overleaf Menu</span> → <span class="kbd">Auto-complete</span> → <strong>ON</strong>.</li>
+          <li>Use it: start typing <code>\citep{</code> or <code>\citet{</code> and pause — Overleaf will suggest your citation keys.</li>
+        </ol>
+
+        <p class="muted"><strong>Troubleshooting:</strong> if the popup doesn’t appear, check your <code>.bib</code> for syntax errors, reload the tab to reindex, and avoid placing optional arguments before the brace (type <code>\citep{</code>, not <code>\citep[see][]{</code> first).</p>
+
+        <div class="hr"></div>
+
+        <h2>✨ Results</h2>
+        <ul>
+          <li>Consistent, readable keys straight from <strong>NASA ADS</strong> (<code>Parker2024a</code>, etc.).</li>
+          <li>Smooth <strong>Overleaf autocomplete</strong> for faster writing.</li>
+          <li>A workflow that’s clean, reproducible, and collaboration-friendly.</li>
+        </ul>
+
+        <div class="callout">
+          Bonus: If you use <strong>Zotero + Better BibTeX</strong>, you can import the same ADS <code>.bib</code> and have Zotero rename PDFs to match your citekeys automatically.
+        </div>
+
+        <footer>
+          <p class="muted">© 2025 · Your Name</p>
+        </footer>
+      </article>
+    </main>
+  </div>
+</body>
+</html>
